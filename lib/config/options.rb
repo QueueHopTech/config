@@ -6,6 +6,8 @@ module Config
     include Enumerable
     include Validation::Validate if RUBY_VERSION >= '2.1'
 
+    attr_reader :config_sources
+
     def keys
       marshal_dump.keys
     end
@@ -29,6 +31,10 @@ module Config
 
       @config_sources ||= []
       @config_sources.unshift(source)
+    end
+
+    def clean_sources!
+      @config_sources = []
     end
 
     def reload_env!

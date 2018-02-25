@@ -58,15 +58,19 @@ module Config
   end
 
   def self.setting_files(config_root, env)
-    [
-      File.join(config_root, "settings.yml").to_s,
-      File.join(config_root, "settings", "#{env}.yml").to_s,
-      File.join(config_root, "environments", "#{env}.yml").to_s,
-
-      File.join(config_root, "settings.local.yml").to_s,
-      File.join(config_root, "settings", "#{env}.local.yml").to_s,
-      File.join(config_root, "environments", "#{env}.local.yml").to_s
-    ].freeze
+    if ENV['ENV'] == 'production'
+      [
+          'config/settings.yml',
+          'config/settings/production.yml',
+          'config/settings/production.local.yml'
+      ].freeze
+    else
+      [
+          'config/settings.yml',
+          'config/settings/development.yml',
+          'config/settings/development.local.yml'
+      ].freeze
+    end
   end
 
   def self.reload!
