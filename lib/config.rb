@@ -64,6 +64,12 @@ module Config
           'config/settings/production.yml',
           'config/settings/production.local.yml'
       ].freeze
+    elsif ENV['ENV'] == 'staging'
+      [
+          'config/settings.yml',
+          'config/settings/staging.yml',
+          'config/settings/staging.local.yml'
+      ].freeze
     else
       [
           'config/settings.yml',
